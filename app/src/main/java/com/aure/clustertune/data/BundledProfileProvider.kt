@@ -4,17 +4,19 @@ import android.content.Context
 import com.aure.clustertune.model.CpuPolicyInfo
 import com.aure.clustertune.model.PerformanceProfile
 import com.aure.clustertune.model.ProfileSource
+import java.util.Locale
 
-private fun String.sanitizeAssetFileName(): String {
-    return filter { character ->
-        character.isLetterOrDigit() || character == '_' || character == '-' || character == '.'
-    }
+private fun String.normalizeAssetFileName(): String {
+    return uppercase(Locale.US)
+        .filter { character ->
+            character.isLetterOrDigit() || character == '_' || character == '-' || character == '.'
+        }
 }
 
 private fun assetProfileReader(context: Context): (String) -> String? {
     val appContext = context.applicationContext
     return { socModel ->
-        val fileName = "bundled_profiles/${socModel.sanitizeAssetFileName()}.json"
+        val fileName = "bundled_profiles/${socModel.normalizeAssetFileName()}.json"
         runCatching {
             appContext.assets.open(fileName).bufferedReader().use { it.readText() }
         }.getOrNull()

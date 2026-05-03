@@ -5,7 +5,7 @@
 
 ClusterTune is an Android utility for tuning CPU frequency limits on supported handheld devices. It lets you adjust CPU clusters, save performance profiles, and access quick controls from an Android Quick Settings tile.
 
-The app has been tested with the AYN Odin 3, but should be compatible with other AYN and Retroid devices.
+The app has been tested with the AYN Odin 3 and POCO F6, but should be compatible with other supported handhelds.
 
 ClusterTune does not require Magisk or user-granted root access. It relies on the device's built-in PServer service, where available.
 
@@ -41,7 +41,7 @@ Lower CPU frequency caps can reduce power draw, which may help lower temperature
 ## Requirements
 
 - Android 12+ (`minSdk 31`).
-- A compatible handheld with the PServer service, such as supported AYN and Retroid devices.
+- A compatible handheld with the PServer service, such as supported AYN, Retroid, and POCO devices.
 
 ## Build
 
