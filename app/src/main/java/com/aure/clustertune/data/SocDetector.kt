@@ -14,9 +14,14 @@ open class SocDetector {
             readProperty("ro.soc.model"),
             readProperty("ro.vendor.qti.soc_model"),
             readProperty("ro.fota.platform"),
+            readProperty("ro.product.model"),
+            readProperty("ro.product.device"),
             Build.SOC_MODEL,
             Build.HARDWARE,
             Build.BOARD,
+            Build.MODEL,
+            Build.PRODUCT,
+            Build.DEVICE,
         )
         return candidates.firstOrNull { !it.isNullOrBlank() }
             ?.trim()

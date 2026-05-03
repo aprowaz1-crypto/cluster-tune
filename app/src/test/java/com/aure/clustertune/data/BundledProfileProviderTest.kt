@@ -89,6 +89,22 @@ class BundledProfileProviderTest {
         assertTrue(profiles.isEmpty())
     }
 
+    @Test
+    fun `returns poco f6 profiles when matching asset exists`() {
+        val profiles = BundledProfileProvider(
+            readProfileJson = { socModel -> if (socModel == "POCO F6") pocoF6Json else null },
+            parseProfiles = { pocoF6Profiles },
+            socDetector = fakeSocDetector("POCO F6"),
+        ).createProfiles(
+            listOf(
+                policy(id = 0, stockMax = 3_532_800, supported = listOf(1_785_600, 2_227_200, 2_745_600, 3_532_800)),
+                policy(id = 6, stockMax = 4_320_000, supported = listOf(1_958_400, 2_246_400, 3_072_000, 4_320_000)),
+            ),
+        )
+
+        assertEquals(listOf("Small Underclock", "Medium Underclock", "Large Underclock"), profiles.map { it.name })
+    }
+
     private fun fakeSocDetector(socModel: String) = object : SocDetector() {
         override fun detectSocModel(): String = socModel
     }
@@ -108,6 +124,60 @@ class BundledProfileProviderTest {
         ),
         PerformanceProfile(
             id = "bundled_cq8725s_large",
+            name = "Large Underclock",
+            maxFrequencies = mapOf(0 to 1_785_600, 6 to 1_958_400),
+            source = ProfileSource.BUNDLED,
+        ),
+    )
+
+    private val pocoF6Json = """
+        {
+          "schemaVersion": 1,
+          "socModel": "POCO F6",
+          "profiles": [
+            {
+              "id": "bundled_pocof6_small",
+              "name": "Small Underclock",
+              "maxFrequencies": {
+                "0": 2745600,
+                "6": 3072000
+              }
+            },
+            {
+              "id": "bundled_pocof6_medium",
+              "name": "Medium Underclock",
+              "maxFrequencies": {
+                "0": 2227200,
+                "6": 2246400
+              }
+            },
+            {
+              "id": "bundled_pocof6_large",
+              "name": "Large Underclock",
+              "maxFrequencies": {
+                "0": 1785600,
+                "6": 1958400
+              }
+            }
+          ]
+        }
+    """.trimIndent()
+
+    private val pocoF6Profiles = listOf(
+        PerformanceProfile(
+            id = "bundled_pocof6_small",
+            name = "Small Underclock",
+            maxFrequencies = mapOf(0 to 2_745_600, 6 to 3_072_000),
+            source = ProfileSource.BUNDLED,
+        ),
+        PerformanceProfile(
+            id = "bundled_pocof6_medium",
+            name = "Medium Underclock",
+            maxFrequencies = mapOf(0 to 2_227_200, 6 to 2_246_400),
+            source = ProfileSource.BUNDLED,
+        ),
+        PerformanceProfile(
+            id = "bundled_pocof6_large",
             name = "Large Underclock",
             maxFrequencies = mapOf(0 to 1_785_600, 6 to 1_958_400),
             source = ProfileSource.BUNDLED,

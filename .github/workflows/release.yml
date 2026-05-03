@@ -23,6 +23,12 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Set up Android SDK
+        uses: reactivecircus/android-sdk@v4
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+
       - name: Decode release keystore
         run: |
           mkdir -p "$RUNNER_TEMP/clustertune"

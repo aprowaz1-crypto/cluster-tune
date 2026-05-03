@@ -88,9 +88,10 @@ Bundled profiles are stored as SoC-specific JSON files:
 
 ```text
 app/src/main/assets/bundled_profiles/CQ8725S.json
+app/src/main/assets/bundled_profiles/POCOF6.json
 ```
 
-The filename should match the detected SoC model, such as `ro.soc.model`.
+The filename should match the detected SoC model or device model, such as `ro.soc.model` or `Build.MODEL`.
 
 Example:
 
