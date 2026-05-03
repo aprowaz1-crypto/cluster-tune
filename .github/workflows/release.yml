@@ -24,10 +24,12 @@ jobs:
           java-version: "17"
 
       - name: Set up Android SDK
-        uses: reactivecircus/android-sdk@v4
+        uses: android-actions/setup-android@v4
         with:
-          api-level: 34
-          build-tools: 34.0.0
+          packages: |
+            platform-tools
+            platform;android-34
+            build-tools;34.0.0
 
       - name: Decode release keystore
         run: |
